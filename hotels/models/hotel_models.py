@@ -11,13 +11,13 @@ class Facility(models.Model):
     def return_facility(self):
         return self.__str__()
 
-    @property
-    def hotel_with_facility(self):
-        hotel_facility = self.hotel_facility.all()
+    # @property
+    def hotel_with_facility(self,city_name):
+        hotel_facility = self.hotel_facility.filter(address__city__city_name=city_name)
         if len(hotel_facility)!=0:
             hotels = [{'hotel_id':fac.id,'hotel_name':fac.hotel_name, 'address': fac.address.return_full_address} for fac in hotel_facility]
         else:
-            hotel_facility = self.facility.all()
+            hotel_facility = self.facility.filter(hotel__address__city__city_name=city_name)
             hotels = [{'hotel_id':fac.hotel.id,'hotel_name':fac.hotel.hotel_name, 'address': fac.hotel.address.return_full_address} for fac in hotel_facility]
         return hotels
 

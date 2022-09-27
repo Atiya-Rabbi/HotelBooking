@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from hotels.models.hotel_models import HotelProperty, Facility, Room, Image
 from hotels.models.address_models import *
-from hotels.entity.filter_queries import find_hotels_by_dest,hotel_details,find_hotels_by_facility
+from hotels.entity.filter_queries import find_hotels_by_dest,hotel_details,find_hotels_by_facility, find_hotel_by_price
 
 class DbQueriesTestCase(TestCase):
     def setUp(self):
@@ -32,7 +32,7 @@ class DbQueriesTestCase(TestCase):
         r1.facility.add(f3)
         r2=Room.objects.create(room_type='king',sleeps=2,hotel=h1,price=200)
         r2.facility.add(f3)
-        r1=Room.objects.create(room_type='queen',sleeps=2,hotel=h2,price=120)
+        r3=Room.objects.create(room_type='queen',sleeps=2,hotel=h2,price=150)
 
         image_path = 'hotels/static/images/test/test_image.jpg'
         newPhoto1 = Image()
@@ -63,7 +63,12 @@ class DbQueriesTestCase(TestCase):
         self.assertEqual(len(details2['images']),1)
 
     def test_find_hotels_by_facility(self):
-        hotels = find_hotels_by_facility(facilities_id=[1,2,3])
-        self.assertEqual(len(hotels[0].hotel_with_facility),2)
-        self.assertEqual(len(hotels[1].hotel_with_facility),1)
-        self.assertEqual(len(hotels[2].hotel_with_facility),2)
+        hotels = find_hotels_by_facility(facilities_id=[1,2,3],city='New Delhi')
+        self.assertEqual(len(hotels),1)
+
+    def test_find_hotel_by_price(self):
+        minprice = 100
+        maxprice = 200
+        hotels = find_hotel_by_price(minprice,maxprice,'Dublin')
+        self.assertEqual(len(hotels),1)
+        
