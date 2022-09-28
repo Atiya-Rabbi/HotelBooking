@@ -49,6 +49,16 @@ class HotelProperty(models.Model):
         }
         return details
 
+    @property
+    def basic(self):
+        image = self.hotel_img.first()
+        basic_details = {
+            'hotel_id': self.id,
+            'hotel_name': self.hotel_name,
+            'address': self.address.return_full_address,
+            'images': image.upload.url,
+        }
+        return basic_details
     
 
 class Room(models.Model):

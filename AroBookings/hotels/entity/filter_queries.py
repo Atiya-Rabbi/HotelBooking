@@ -11,8 +11,9 @@ class FilterQuery:
         elif dest_type == 'country':
             param = {'address__country__country_name':dest}
         
-        qs = HotelProperty.objects.filter(**param).values('id','hotel_name','address')
-        return qs
+        qs = HotelProperty.objects.filter(**param)#.values('id','hotel_name','address')
+        basic_details = [hotel.basic for hotel in qs]
+        return basic_details
 
     def find_hotels_by_facility(self,facilities_id,city):
         result =[]
