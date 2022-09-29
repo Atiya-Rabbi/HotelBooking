@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+svg{
+  width: 20px !important;
+}
+
+.card_view{
+  height: 200px;
+  width: absolute;
+}
+
+@media only screen and (min-width: 800px){
+.search_bar{
+  margin-left: 50%;
+}
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

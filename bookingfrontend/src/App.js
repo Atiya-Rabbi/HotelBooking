@@ -1,47 +1,27 @@
 import React from 'react';
-import axios from 'axios';
+import './App.css'
+import Navigation from './components/header';
+import Home from './components/home';
+import About from './components/about'
+import Contact from './components/contact'
+import Hotel from './components/hotel'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class App extends React.Component {
-  
-  state = {
-      details : [],
+  render() {
+    return(
+        <Router>
+          <Navigation/>
+          <Switch>
+              <Route exact path='/' component={Home}/>
+              <Route path='/about' component={About}/>
+              <Route path='/contact' component={Contact}/>
+              <Route path='/hotel/:hotel_id' component={Hotel}/>
+          </Switch>
+        </Router>
+        
+      );
   }
-
-  componentDidMount() {
-
-      let data ;
-
-      axios.get('/api/hotel/')
-      .then(res => {
-          data = res.data;
-          this.setState({
-              details : data    
-          });
-      })
-      .catch(err => {})
-  }
-
-render() {
-  return(
-    <div>
-          {this.state.details.map((detail, id) =>  (
-          <div key={id}>
-          <div >
-                <div >
-                      <h1>{detail.hotel_name} </h1>
-                      <h2>{detail.address}</h2>
-                      <footer >--- by
-                      <cite title="Source Title">
-                      {detail.hotel_id}</cite>
-                      </footer>
-                </div>
-          </div>
-          </div>
-          )
-      )}
-    </div>
-    );
-}
 }
 
 export default App;

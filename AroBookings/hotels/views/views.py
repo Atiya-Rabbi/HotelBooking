@@ -12,7 +12,8 @@ class Hotel(APIView):
     # serializer_class = HotelSerializer
   
     def get(self, request):
-        detail = FilterQuery().find_hotels_by_dest('city','Galway')
+        city_name = request.GET.get('city', 'Dublin')
+        detail = FilterQuery().find_hotels_by_dest('city',city_name)
         return Response(detail)
   
     # def post(self, request):

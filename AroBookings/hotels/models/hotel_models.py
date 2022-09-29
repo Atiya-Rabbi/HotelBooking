@@ -1,6 +1,6 @@
 from django.db import models
 from hotels.models.address_models import Address
-import os
+import os,re
 
 class Facility(models.Model):
     facility_name = models.CharField(max_length=100,null=False,unique=True)
@@ -37,7 +37,7 @@ class HotelProperty(models.Model):
         rooms = self.hotel_room.all()
         room = [r.room_details for r in rooms]
         images = self.hotel_img.all()
-        img = [i.upload.url for i in images]
+        img = [re.sub("hotels/", "", i.upload.url) for i in images]
         details = {
             'hotel_id': self.id,
             'hotel_name': self.hotel_name,
@@ -52,11 +52,14 @@ class HotelProperty(models.Model):
     @property
     def basic(self):
         image = self.hotel_img.first()
+        facilities = self.facility.all()[:3]
+        facility = [fac.return_facility for fac in facilities]
         basic_details = {
             'hotel_id': self.id,
             'hotel_name': self.hotel_name,
             'address': self.address.return_full_address,
-            'images': image.upload.url,
+            'images': re.sub("hotels/", "", image.upload.url),
+            'facility': facility,
         }
         return basic_details
     
