@@ -25,7 +25,7 @@ class Address(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE,related_name='country')
 
     def __str__(self):
-        full_address = self.street + ',' + self.city.city_name + ',' + self.country.country_name
+        full_address = self.street.capitalize() + ',' + self.city.city_name.capitalize() + ',' + self.country.country_name.capitalize()
         return full_address
     
     @property

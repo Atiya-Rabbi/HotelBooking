@@ -3,27 +3,26 @@ import { connect } from 'react-redux';
 import { Nav, Navbar, NavLink } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
-import { get_details } from "../features/hotel/hotelSlice"
+import { Link, Redirect } from "react-router-dom";
+import { get_details,fetchHotels } from "../features/hotel/hotelSlice"
 import { getDetails } from "../api/get_request"
+// import { useHistory } from "react-router-dom";
 
 
 class Navigation extends React.Component {
     constructor(props){
         super(props);
-        this.state={}
+        this.state={
+        }
         this.hotelDetail = this.hotelDetail.bind(this)
     }
     
+    
     hotelDetail(){
         var self = this;
-        var search_city = document.getElementById('search_city').value;
-        var cast = Promise.resolve(getDetails('city',search_city))
-        cast.then(function(details){
-            console.log(details)
-            self.props.get_details(details)
-            
-        })
+        var city_name = document.getElementById('search_city').value;
+        window.location.href = '/?city='+city_name;
+        
     }
 
     render() {
@@ -56,6 +55,6 @@ class Navigation extends React.Component {
 // export default Navigation;
 
   
-const mapDispatchToProps = { get_details };
+const mapDispatchToProps = { fetchHotels };
 
 export default connect(null, mapDispatchToProps)(Navigation);

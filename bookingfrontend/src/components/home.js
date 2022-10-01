@@ -1,38 +1,40 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import ImageAndText from './card_comp';
 import Container from 'react-bootstrap/Container';
-import { get_details } from "../features/hotel/hotelSlice"
-import { getDetails } from "../api/get_request"
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import { OffCanvas, OffCanvasMenu, OffCanvasBody } from "react-offcanvas";
+import { get_details, fetchHotels } from "../features/hotel/hotelSlice"
 
 
 class Home extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            isMenuOpened: false
         }
-        
     }
     
     componentDidMount() {
         var self = this;
-        var search_city = document.getElementById('search_city').value;
-        var cast = Promise.resolve(getDetails('city',search_city))
-        cast.then(function(details){
-            console.log(details)
-            self.props.get_details(details)
-            
-        })
+        self.props.fetchHotels()
         
     }
+
+    handleClick() {
+        // toggles the menu opened state
+        this.setState({ isMenuOpened: !this.state.isMenuOpened });
+    }
+
     render(){
+        
         return(
             <Container>
                 <h1>Hotel Booking</h1>
+                
                 <div>
                     {this.props.details.map((detail, id) =>  (
-                        <ImageAndText detail={detail}/>
+                        <ImageAndText detail={detail} key={id}/>
                     )
                 )}
                 </div>
@@ -43,7 +45,7 @@ class Home extends React.Component{
 }
 
 // export default Home;
-const mapDispatchToProps = { get_details };
+const mapDispatchToProps = { fetchHotels };
 
 
 const mapStateToProps = (state) => ({

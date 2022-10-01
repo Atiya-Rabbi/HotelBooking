@@ -2,6 +2,8 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { NavLink } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -14,7 +16,6 @@ class ImageAndText extends React.Component{
     }  
     
     componentDidMount(){
-        console.log(this.props.detail)
     }
 
     ObjectRow(facility) {
@@ -31,10 +32,15 @@ class ImageAndText extends React.Component{
     render(){
         var facilities = this.props.detail.facility;
         var numrows = facilities.length;
+        var type='radio'
+        var cls = '';
+        if(window.innerWidth<600)
+            cls = 'auto'
         const rows = [];
         for (let i = 0; i < numrows; i++) {
             rows.push(this.ObjectRow(facilities[i]));
         }
+        
         return (
             <>
                 <Row >
@@ -43,7 +49,7 @@ class ImageAndText extends React.Component{
                         <Card.Img variant="top" src={this.props.detail.images} className='card_view'/>
                     </Card>
                     </Col>
-                    <Col md="auto">
+                    <Col md={cls}>
                         <Card className='card_view'>
                             <Card.Body>
                                 <Card.Text>

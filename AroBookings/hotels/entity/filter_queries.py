@@ -31,7 +31,6 @@ class FilterQuery:
     def hotel_details(self,hotel_id):
         try:
             qs = HotelProperty.objects.get(id=hotel_id)
-            print('==================',qs)
             return qs.hotel_details
         except:
             return {}
