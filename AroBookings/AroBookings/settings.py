@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'hotels.apps.HotelsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django_extensions',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
