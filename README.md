@@ -36,7 +36,7 @@ username: admin
 password: arobookings
 
 To view the api navigate to http://localhost:8000/api/hotel/?city=dublin
-![Screenshot from 2022-10-02 11-34-29](https://user-images.githubusercontent.com/31544068/193440472-6942a181-2e26-49a5-b036-b4d779ad66ec.png)
+![Screenshot from 2022-10-02 11-34-29](https://user-images.githubusercontent.com/31544068/193441317-6c1278b4-31ec-4147-8b17-acfad7f30fc1.png)
 
 ## Tests
 
@@ -52,7 +52,7 @@ Open a new terminal
 ```sh
 $ cd HotelBooking/bookingfrontend
 $ npm start
-```sh
+```
 
 And navigate to http://localhost:3000/
 
