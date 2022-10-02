@@ -49,9 +49,9 @@ class DbQueriesTestCase(TestCase):
         result2 = FilterQuery().find_hotels_by_dest('region','Delhi NCR')
         result3 = FilterQuery().find_hotels_by_dest('country','USA')
 
-        self.assertEqual(result1.count(), 1)
-        self.assertEqual(result2.count(), 1)
-        self.assertEqual(result3.count(), 0)
+        self.assertEqual(len(result1), 1)
+        self.assertEqual(len(result2), 1)
+        self.assertEqual(len(result3), 0)
 
     def test_hotel_details(self):
         details1 = FilterQuery().hotel_details(1)
